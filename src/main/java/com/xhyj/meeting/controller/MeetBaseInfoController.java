@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.xhyj.meeting.db.entity.MeetBaseInfo;
+import com.xhyj.meeting.dto.MeetBaseInfoDto;
 import com.xhyj.meeting.service.MeetBaseInfoService;
+import com.xhyj.meeting.util.MyBeanUtil;
 
 
 /**
@@ -25,6 +27,8 @@ public class MeetBaseInfoController {
 	private MeetBaseInfoService meetBaseInfoService;
 	@RequestMapping("query")
 	public Page<MeetBaseInfo> query(MeetBaseInfo user,int pageNum) {
-		return meetBaseInfoService.findPage(user, pageNum);
+		Page<MeetBaseInfo> all = meetBaseInfoService.findPage(user, pageNum);
+		MyBeanUtil.filterField(all.getContent(), new MeetBaseInfoDto());
+		return all;
 	}
 }
