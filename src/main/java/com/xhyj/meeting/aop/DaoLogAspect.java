@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 @Aspect
@@ -41,7 +42,7 @@ public class DaoLogAspect {
     @AfterReturning(returning = "result", pointcut = "webRequestLog()")
     public void doAfterReturning(Object result) {
         try {
-        	logger.info("service return : " + new Gson().toJson(result));
+        	logger.info("service return : " + new ObjectMapper().writeValueAsString(result));
         } catch (Exception e) {
             logger.error("***操作请求日志记录失败doAfterReturning()***", e);
         }

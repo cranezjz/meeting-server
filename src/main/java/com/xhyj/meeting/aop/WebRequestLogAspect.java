@@ -13,7 +13,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.xhyj.util.annotation.AnnoHelper;
 
 @Aspect
 @Component
@@ -41,7 +43,7 @@ public class WebRequestLogAspect {
             String params = "";
             Gson gson = new Gson();
             params = gson.toJson(request.getParameterMap());
-            logger.info("收到请求:uri=" + uri + "; beanName=" + beanName + "; "+"methodName=" + methodName +
+            logger.info("收到请求("+AnnoHelper.getLabelValue(beanName, methodName)+"):uri=" + uri + "; beanName=" + beanName + "; "+"methodName=" + methodName +
             		"; remoteAddr=" + remoteAddr + "; method="+method
             		+  "; params=" + params);
         } catch (Exception e) {
@@ -53,7 +55,7 @@ public class WebRequestLogAspect {
     public void doAfterReturning(Object result) {
         try {
         	long useTime=System.currentTimeMillis()-threadStorage.get();
-        	logger.info("返回信息 :("+useTime+") " + new Gson().toJson(result));
+        	logger.info("返回信息 :("+useTime+") " + new ObjectMapper().writeValueAsString(result));
         } catch (Exception e) {
             logger.error("***操作请求日志记录失败doAfterReturning()***", e);
         }

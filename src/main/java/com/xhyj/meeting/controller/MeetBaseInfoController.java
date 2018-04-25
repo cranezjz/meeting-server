@@ -3,6 +3,8 @@
  */
 package com.xhyj.meeting.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.xhyj.meeting.db.entity.MeetBaseInfo;
 import com.xhyj.meeting.dto.MeetBaseInfoDto;
+import com.xhyj.meeting.dto.ReturnData;
 import com.xhyj.meeting.service.MeetBaseInfoService;
 import com.xhyj.meeting.util.MyBeanUtil;
+import com.xhyj.util.annotation.Label;
 
 
 /**
@@ -25,10 +29,22 @@ import com.xhyj.meeting.util.MyBeanUtil;
 public class MeetBaseInfoController {
 	@Autowired
 	private MeetBaseInfoService meetBaseInfoService;
-	@RequestMapping("query")
-	public Page<MeetBaseInfo> query(MeetBaseInfo user,int pageNum) {
+	@RequestMapping("queryAll")
+	@Label("查询会议基本信息")
+	public ReturnData queryAll() {
+		List<MeetBaseInfo> all = meetBaseInfoService.findAll();
+		return MyBeanUtil.getSuccReturnData(all, new MeetBaseInfoDto());
+	}
+	@RequestMapping("queryOnePage")
+	@Label("查询会议基本信息")
+	public ReturnData queryOnePage(MeetBaseInfo user,int pageNum) {
 		Page<MeetBaseInfo> all = meetBaseInfoService.findPage(user, pageNum);
-		MyBeanUtil.filterField(all.getContent(), new MeetBaseInfoDto());
-		return all;
+		return MyBeanUtil.getSuccReturnData(all, new MeetBaseInfoDto());
+	}
+	@RequestMapping("queryOneById")
+	@Label("查询会议基本信息")
+	public ReturnData queryOneById(MeetBaseInfo meetBaseInfo) {
+		MeetBaseInfo one = meetBaseInfoService.findOneById(meetBaseInfo);
+		return MyBeanUtil.getSuccReturnData(one, new MeetBaseInfoDto());
 	}
 }

@@ -1,181 +1,182 @@
 package com.xhyj.meeting.db.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
+
 
 /**
+ * The persistent class for the MEET_BASE_INFO database table.
  * 
- * <p>Title: MeetBaseInfo.java</p>  
- * <p>Description: </p>  
- * @author zhaojz
- * @date 2018年4月13日
  */
 @Entity
-@Table(name="meet_base_info")
-public class MeetBaseInfo {
+@Table(name="MEET_BASE_INFO")
+@NamedQuery(name="MeetBaseInfo.findAll", query="SELECT m FROM MeetBaseInfo m")
+public class MeetBaseInfo implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	public java.lang.String id;
-	/**
-	 * 名称
-	 */
-	@Column
-	public java.lang.String name;
-	/**
-	 * 会议主办机构
-	 */
-	@Column
-	public java.lang.String host_org;
-	/**
-	 * 起始日期
-	 */
-	@Column
-	public java.lang.String begin_date;
-	/**
-	 * 结束日期
-	 */
-	@Column
-	public java.lang.String end_date;
-	/**
-	 * 状态：00:未发布；10：已发布；20：已结束
-	 */
-	@Column
-	public java.lang.String stt;
-	/**
-	 * 发布日期
-	 */
-	@Column
-	public java.lang.String issue_date;
-	/**
-	 * 会议地址
-	 */
-	@Column
-	public java.lang.String address;
-	/**
-	 * 报名截止日期
-	 */
-	@Column
-	public java.lang.String last_apply_date;
-	/**
-	 * 可报名机构分组id--备用
-	 */
-	@Column
-	public java.lang.String allow_apply_group;
-	/**
-	 * 报名是否需确认(0：不需要确认；1：需要确认)
-	 */
-	@Column
-	public java.lang.String apply_confirm_flag;
-	/**
-	 * 宴会是否需确认（0：不需要确认；1：需要确认）
-	 */
-	@Column
-	public java.lang.String feast_confirm_flag;
-	/**
-	 * 创建日期
-	 */
-	@Column
-	public java.lang.String insert_date;
-	/**
-	 * 修改日期
-	 */
-	@Column
-	public java.lang.String modify_date;
-	/**
-	 * 操作员
-	 */
-	@Column
-	public java.lang.String operator_id;
-	public java.lang.String getId() {
-		return id;
+	private String id;
+
+	private String address;
+
+	@Column(name="ALLOW_APPLY_GROUP")
+	private String allowApplyGroup;
+
+	@Column(name="APPLY_CONFIRM_FLAG")
+	private String applyConfirmFlag;
+
+	@Column(name="BEGIN_DATE")
+	private String beginDate;
+
+	@Column(name="END_DATE")
+	private String endDate;
+
+	@Column(name="FEAST_CONFIRM_FLAG")
+	private String feastConfirmFlag;
+
+	@Column(name="HOST_ORG")
+	private String hostOrg;
+
+	@Column(name="INSERT_DATE")
+	private String insertDate;
+
+	@Column(name="ISSUE_DATE")
+	private String issueDate;
+
+	@Column(name="LAST_APPLY_DATE")
+	private String lastApplyDate;
+
+	@Column(name="MODIFY_DATE")
+	private String modifyDate;
+
+	private String name;
+
+	@Column(name="OPERATOR_ID")
+	private String operatorId;
+
+	private String stt;
+
+	public MeetBaseInfo() {
 	}
-	public void setId(java.lang.String id) {
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	public java.lang.String getName() {
-		return name;
+
+	public String getAddress() {
+		return this.address;
 	}
-	public void setName(java.lang.String name) {
-		this.name = name;
-	}
-	public java.lang.String getHost_org() {
-		return host_org;
-	}
-	public void setHost_org(java.lang.String host_org) {
-		this.host_org = host_org;
-	}
-	public java.lang.String getBegin_date() {
-		return begin_date;
-	}
-	public void setBegin_date(java.lang.String begin_date) {
-		this.begin_date = begin_date;
-	}
-	public java.lang.String getEnd_date() {
-		return end_date;
-	}
-	public void setEnd_date(java.lang.String end_date) {
-		this.end_date = end_date;
-	}
-	public java.lang.String getStt() {
-		return stt;
-	}
-	public void setStt(java.lang.String stt) {
-		this.stt = stt;
-	}
-	public java.lang.String getIssue_date() {
-		return issue_date;
-	}
-	public void setIssue_date(java.lang.String issue_date) {
-		this.issue_date = issue_date;
-	}
-	public java.lang.String getAddress() {
-		return address;
-	}
-	public void setAddress(java.lang.String address) {
+
+	public void setAddress(String address) {
 		this.address = address;
 	}
-	public java.lang.String getLast_apply_date() {
-		return last_apply_date;
+
+	public String getAllowApplyGroup() {
+		return this.allowApplyGroup;
 	}
-	public void setLast_apply_date(java.lang.String last_apply_date) {
-		this.last_apply_date = last_apply_date;
+
+	public void setAllowApplyGroup(String allowApplyGroup) {
+		this.allowApplyGroup = allowApplyGroup;
 	}
-	public java.lang.String getAllow_apply_group() {
-		return allow_apply_group;
+
+	public String getApplyConfirmFlag() {
+		return this.applyConfirmFlag;
 	}
-	public void setAllow_apply_group(java.lang.String allow_apply_group) {
-		this.allow_apply_group = allow_apply_group;
+
+	public void setApplyConfirmFlag(String applyConfirmFlag) {
+		this.applyConfirmFlag = applyConfirmFlag;
 	}
-	public java.lang.String getApply_confirm_flag() {
-		return apply_confirm_flag;
+
+	public String getBeginDate() {
+		return this.beginDate;
 	}
-	public void setApply_confirm_flag(java.lang.String apply_confirm_flag) {
-		this.apply_confirm_flag = apply_confirm_flag;
+
+	public void setBeginDate(String beginDate) {
+		this.beginDate = beginDate;
 	}
-	public java.lang.String getFeast_confirm_flag() {
-		return feast_confirm_flag;
+
+	public String getEndDate() {
+		return this.endDate;
 	}
-	public void setFeast_confirm_flag(java.lang.String feast_confirm_flag) {
-		this.feast_confirm_flag = feast_confirm_flag;
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
-	public java.lang.String getInsert_date() {
-		return insert_date;
+
+	public String getFeastConfirmFlag() {
+		return this.feastConfirmFlag;
 	}
-	public void setInsert_date(java.lang.String insert_date) {
-		this.insert_date = insert_date;
+
+	public void setFeastConfirmFlag(String feastConfirmFlag) {
+		this.feastConfirmFlag = feastConfirmFlag;
 	}
-	public java.lang.String getModify_date() {
-		return modify_date;
+
+	public String getHostOrg() {
+		return this.hostOrg;
 	}
-	public void setModify_date(java.lang.String modify_date) {
-		this.modify_date = modify_date;
+
+	public void setHostOrg(String hostOrg) {
+		this.hostOrg = hostOrg;
 	}
-	public java.lang.String getOperator_id() {
-		return operator_id;
+
+	public String getInsertDate() {
+		return this.insertDate;
 	}
-	public void setOperator_id(java.lang.String operator_id) {
-		this.operator_id = operator_id;
+
+	public void setInsertDate(String insertDate) {
+		this.insertDate = insertDate;
 	}
-	
+
+	public String getIssueDate() {
+		return this.issueDate;
+	}
+
+	public void setIssueDate(String issueDate) {
+		this.issueDate = issueDate;
+	}
+
+	public String getLastApplyDate() {
+		return this.lastApplyDate;
+	}
+
+	public void setLastApplyDate(String lastApplyDate) {
+		this.lastApplyDate = lastApplyDate;
+	}
+
+	public String getModifyDate() {
+		return this.modifyDate;
+	}
+
+	public void setModifyDate(String modifyDate) {
+		this.modifyDate = modifyDate;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getOperatorId() {
+		return this.operatorId;
+	}
+
+	public void setOperatorId(String operatorId) {
+		this.operatorId = operatorId;
+	}
+
+	public String getStt() {
+		return this.stt;
+	}
+
+	public void setStt(String stt) {
+		this.stt = stt;
+	}
+
 }

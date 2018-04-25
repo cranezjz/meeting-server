@@ -1,12 +1,10 @@
-/**
- * 
- */
 package com.xhyj.meeting.dao;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.xhyj.meeting.db.entity.MeetBaseInfo;
+import com.xhyj.meeting.db.entity.MeetConferee;
 
 
 /**
@@ -15,6 +13,6 @@ import com.xhyj.meeting.db.entity.MeetBaseInfo;
  * @author zhaojz
  * @date 2018年4月13日
  */
-public interface MeetBaseInfoDao extends JpaRepository<MeetBaseInfo, String> ,JpaSpecificationExecutor<MeetBaseInfo>{
+public interface ConfereeDao extends JpaRepository<MeetConferee, Integer> ,JpaSpecificationExecutor<MeetConferee>{
 
 }

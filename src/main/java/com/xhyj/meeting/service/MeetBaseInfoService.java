@@ -12,9 +12,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -31,13 +33,35 @@ import com.xhyj.meeting.db.entity.MeetBaseInfo;
  */
 @Service
 public class MeetBaseInfoService {
+	@Value(value = "${xhyj.page.size}")
+	private int pageSize;
 	@Autowired
 	private MeetBaseInfoDao meetBaseInfoDao;
+	/**
+	 * 
+	 * @param meetBaseInfo
+	 * @param pageNum
+	 * @return
+	 */
 	public Page<MeetBaseInfo> findPage(MeetBaseInfo meetBaseInfo,int pageNum) {
-		//Sort sort = new Sort(Sort.Direction.DESC,"insert_date");
 		Specification<MeetBaseInfo> specification = getWhereClause(meetBaseInfo);
-		Pageable page = PageRequest.of(pageNum, 5);
+		Pageable page =new PageRequest(pageNum, pageSize,Sort.Direction.ASC, "id");
 		return meetBaseInfoDao.findAll(specification, page);
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public List<MeetBaseInfo> findAll() {
+		return meetBaseInfoDao.findAll();
+	}
+	/**
+	 * 
+	 * @param meetBaseInfo
+	 * @return
+	 */
+	public MeetBaseInfo findOneById(MeetBaseInfo meetBaseInfo) {
+		return meetBaseInfoDao.findOne(meetBaseInfo.getId());
 	}
 	
 	/**
@@ -47,7 +71,6 @@ public class MeetBaseInfoService {
      */
     private Specification<MeetBaseInfo> getWhereClause(final MeetBaseInfo meetBaseInfo){
         return new Specification<MeetBaseInfo>() {
-			private static final long serialVersionUID = 1L;
 			@Override
 			public Predicate toPredicate(Root<MeetBaseInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicate = new ArrayList<>();
