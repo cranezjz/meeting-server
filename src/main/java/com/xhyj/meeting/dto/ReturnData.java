@@ -38,6 +38,11 @@ public class ReturnData {
 	public void setCentent(Object centent) {
 		this.centent = centent;
 	}
+	@Override
+	public String toString() {
+		return "ReturnData [code=" + code + ", msg=" + msg + ", page=" + page + ", centent=" + centent + "]";
+	}
+	
 	
 	
 }

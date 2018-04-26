@@ -45,5 +45,10 @@ public class ReturnSimplePage {
 	public void setNumberOfElements(int numberOfElements) {
 		this.numberOfElements = numberOfElements;
 	}
+	@Override
+	public String toString() {
+		return "ReturnSimplePage [totalElements=" + totalElements + ", totalPages=" + totalPages + ", number=" + number
+				+ ", size=" + size + ", numberOfElements=" + numberOfElements + "]";
+	}
 	
 }

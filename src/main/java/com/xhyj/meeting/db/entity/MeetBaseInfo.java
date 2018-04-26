@@ -1,7 +1,12 @@
 package com.xhyj.meeting.db.entity;
 
 import java.io.Serializable;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 
 /**
@@ -179,4 +184,13 @@ public class MeetBaseInfo implements Serializable {
 		this.stt = stt;
 	}
 
+	@Override
+	public String toString() {
+		return "MeetBaseInfo [id=" + id + ", address=" + address + ", allowApplyGroup=" + allowApplyGroup
+				+ ", applyConfirmFlag=" + applyConfirmFlag + ", beginDate=" + beginDate + ", endDate=" + endDate
+				+ ", feastConfirmFlag=" + feastConfirmFlag + ", hostOrg=" + hostOrg + ", insertDate=" + insertDate
+				+ ", issueDate=" + issueDate + ", lastApplyDate=" + lastApplyDate + ", modifyDate=" + modifyDate
+				+ ", name=" + name + ", operatorId=" + operatorId + ", stt=" + stt + "]";
+	}
+	
 }

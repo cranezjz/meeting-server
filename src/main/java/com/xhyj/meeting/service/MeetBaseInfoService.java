@@ -10,7 +10,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -23,6 +26,8 @@ import org.springframework.util.StringUtils;
 
 import com.xhyj.meeting.dao.MeetBaseInfoDao;
 import com.xhyj.meeting.db.entity.MeetBaseInfo;
+import com.xhyj.meeting.util.MyBeanUtil;
+import com.xhyj.meeting.util.TokenUtl;
 
 
 /**
@@ -33,6 +38,7 @@ import com.xhyj.meeting.db.entity.MeetBaseInfo;
  */
 @Service
 public class MeetBaseInfoService {
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Value(value = "${xhyj.page.size}")
 	private int pageSize;
 	@Autowired
@@ -65,6 +71,34 @@ public class MeetBaseInfoService {
 	}
 	
 	/**
+	 * @param meetBaseInfo
+	 * @return
+	 */
+	public MeetBaseInfo add(MeetBaseInfo meetBaseInfo) {
+		MyBeanUtil.complementAddBean(meetBaseInfo, TokenUtl.getOperatorIdFromToken(""));
+		logger.info(meetBaseInfo.toString());
+		return meetBaseInfoDao.save(meetBaseInfo);
+	}
+	
+	/**
+	 * @param meetBaseInfo
+	 * @return
+	 */
+    @Transactional
+	public MeetBaseInfo update(MeetBaseInfo meetBaseInfo) {
+    	MeetBaseInfo dbBean = meetBaseInfoDao.findOne(meetBaseInfo.getId());
+    	dbBean.setName(meetBaseInfo.getName());
+    	MyBeanUtil.setBean(meetBaseInfo, dbBean);
+    	MyBeanUtil.complementUpdateBean(meetBaseInfo, TokenUtl.getOperatorIdFromToken(""));
+    	meetBaseInfoDao.save(dbBean);
+		return dbBean;
+	}
+    
+    @Transactional
+	public void delete(MeetBaseInfo meetBaseInfo) {
+    	meetBaseInfoDao.delete(meetBaseInfo.getId());
+	}
+    /**
      * 动态生成where语句
      * @param searchArticle
      * @return
